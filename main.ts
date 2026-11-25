@@ -20,5 +20,18 @@ const words = LINE.trim().split(/\s+/).length;
 if (chars < 1 || chars > 180 || words > 25 || LINE.includes("\n")) {
   throw new Error(`line fails the gate: ${chars} chars, ${words} words`);
 }
+// Reviser guard (25 Nov 2026): the entry is one clean printed line, so
+// reject anything a single-line gate would let slip through — control
+// characters, leading/trailing or doubled spaces, and a line that does
+// not end in terminal punctuation. The judged line itself is untouched.
+const hasControl = [...LINE].some((ch) => ch.charCodeAt(0) < 0x20);
+const hasBadSpacing =
+  LINE !== LINE.trim() || LINE.includes("  ") || LINE.includes("\t");
+const endsClean = /[.!?]$/.test(LINE);
+if (hasControl || hasBadSpacing || !endsClean) {
+  throw new Error(
+    `line fails the clean-print gate: control=${hasControl} spacing=${hasBadSpacing} endsClean=${endsClean}`,
+  );
+}
 mkdirSync(outDir, { recursive: true });
 writeFileSync(`${outDir}/entry.txt`, LINE, "utf8");
