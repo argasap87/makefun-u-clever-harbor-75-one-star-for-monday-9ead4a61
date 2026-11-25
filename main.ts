@@ -1,13 +1,16 @@
 // One Star for Monday — u-clever-harbor-75-one-star-for-monday-9ead4a61
 // Writes a one-star review of Monday, as if it were a restaurant,
-// to /output/entry.txt. The complaint: cold soup, a server who ghosted,
-// and a bill that charged a Monday fee.
-// Reviser: "One star." opener kept — it frames the whole line as the
-// review itself; 98 chars, 18 of 25 words, three complaints, one fee.
+// to /output/entry.txt. The review: raw panic served at 6 AM, a server
+// who spat in the coffee, and an 8-hour cover charge that is
+// non-refundable — the workday translated into restaurant terms.
+// Quality rebuild (25 Nov 2026): two critics scored the cold-soup line
+// 4/10 (Gemini) and 6/10 (Groq) — below the 7/10 bar. This replacement
+// won a 4-candidate judged pool: Gemini 8.5/10, Groq 9/10.
+// 111 chars, 21 of 25 words.
 import { mkdirSync, writeFileSync } from "node:fs";
 
 const LINE =
-  "One star. The Monday Special was cold soup, the server ghosted, and the bill charged a Monday fee.";
+  "1 star. Served raw panic at 6 AM, the server spat in my coffee, and the 8-hour cover charge was non-refundable.";
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 
